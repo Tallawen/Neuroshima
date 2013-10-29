@@ -32,6 +32,13 @@
 #include <exception>
 #include <algorithm>
 
+/************************************************
+ * SFML
+ ************************************************/
+
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Window.hpp>
 
 /************************************************
  * Our

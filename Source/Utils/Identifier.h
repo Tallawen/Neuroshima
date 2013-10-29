@@ -45,51 +45,51 @@ namespace Utils {
 #endif /*__UTILS_IDENTIFIER_H__*/
 
 /**********************************************//**
- * @class Utils::Identifier Identifier.h "Utils/Identifier.h"
- * @ingroup Utils
- *
- * Klasa tworzy unikalne ID dla poszczególnych grup.
- * Może zostać odziedziczona lub używana jako obiekt.
- *
- * Przykład:
- *     - dziedziczenie
- *
- *    @code
- *    class Texture : protected Identifier {
- *    private:
- *        std::map<int, ....> data;
- *
- *    public:
- *        Texture() : Identifier("tex") { }
- *
- *         void add(...) {
- *            map[newID()] = ...; *
- *        }
- *        .
- *        .
- *        .
- *    };
- *    @endcode
- *
- *     - obiekt
- *     @code
- *     class Texture {
- *     private:
- *         std::map<int, ....> data;
- *         Utils::Identifier identifier;
- *
- *     public:
- *         Texture() : identifier("tex") { }
- *
- *         void add(...) {
- *             map[identifier.newID()] = ...; *
- *         }
- *
- *         .
- *         .
- *         .
- *     };
- *     @endcode
- *
- * @note Proponuję używać wariantu z dziedziczeniem.
- */
+   @class Utils::Identifier Identifier.h "Utils/Identifier.h"
+   @ingroup Utils
+
+   Klasa tworzy unikalne ID dla poszczególnych grup.
+   Może zostać odziedziczona lub używana jako obiekt.
+
+   Przykład:
+      - dziedziczenie
+
+      @code
+      class Texture : protected Identifier {
+      private:
+          std::map<int, ....> data;
+
+      public:
+          Texture() : Identifier("tex") { }
+
+           void add(...) {
+              data[newID()] = ...; *
+          }
+          .
+          .
+          .
+      };
+      @endcode
+
+      - obiekt
+      @code
+      class Texture {
+      private:
+          std::map<int, ....> data;
+          Utils::Identifier identifier;
+
+      public:
+          Texture() : identifier("tex") { }
+
+          void add(...) {
+              data[identifier.newID()] = ...; *
+          }
+
+          .
+          .
+          .
+      };
+      @endcode
+
+   @note Proponuję używać wariantu z dziedziczeniem.
+ ************************************************/

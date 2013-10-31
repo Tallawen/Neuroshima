@@ -1,5 +1,5 @@
-#ifndef __WINDOW_H__
-#define __WINDOW_H__
+#ifndef __RENDERER_WINDOW_WINDOW_H__ /* Zmieniłem ponieważ przy większej ilości plików z takim define kod zostanie pominięty */
+#define __RENDERER_WINDOW_WINDOW_H__
 
 #include "..\..\StdAfx.h"
 
@@ -24,7 +24,7 @@ public:
     Window();
 
     /************************************************/
-    Window(sf::VideoMode _mode, const sf::String &_title, sf::Uint32 _style = sf::Style::Default, const sf::ContextSettings &_settings = sf::ContextSettings::ContextSettings());
+    Window(sf::VideoMode _mode, const sf::String &_title, sf::Uint32 _style = sf::Style::Default, const sf::ContextSettings &_settings = sf::ContextSettings());
     
     
     //explicit Window(sf::WindowHandle handle, const sf::ContextSettings& settings = sf::ContextSettings::ContextSettings());
@@ -42,10 +42,10 @@ public:
 protected:
 
     /************************************************/
-    virtual void onResize() override;
+    void onResize() override;
 
 };
 
 
 } // namespace Renderer
-#endif // __WINDOW_H__
+#endif // __RENDERER_WINDOW_WINDOW_H__

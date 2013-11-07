@@ -5,6 +5,7 @@ namespace Renderer
 
 Window::Window()
     : RenderWindow()
+    , style()
 { }
 
 Window::Window(sf::VideoMode _mode, const sf::String &_title, sf::Uint32 _style, const sf::ContextSettings &_settings)

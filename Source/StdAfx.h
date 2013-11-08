@@ -43,7 +43,7 @@
  * Our
  ************************************************/
 
-//#include "Global.h"
+#include "Global.h"
 
 #include "Utils/Array2D.h"
 #include "Utils/Logger.h"

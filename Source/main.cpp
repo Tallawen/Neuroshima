@@ -1,6 +1,8 @@
 #include "StdAfx.h"
 
 int main() {
+    Global global;
+
     sf::ContextSettings settings;
     settings.antialiasingLevel = 16;
 

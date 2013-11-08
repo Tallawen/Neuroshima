@@ -1,4 +1,5 @@
 #include "Logger.h"
+#include "DateToString.h"
 
 #include <cassert>
 
@@ -94,7 +95,7 @@ namespace Utils {
     /************************************************/
     void Logger::welcomeMsg() {
         *stream << std::endl
-                << "--- Log utworzony " << 0 << std::endl //TODO: Wpiąć metodę gdy będzie gotowa
+                << "--- Log utworzony " << dateToString("%C") << std::endl //data w formacie rrrr-mm-dd : hh:mm:ss
                 << std::endl << std::endl;
     }
 

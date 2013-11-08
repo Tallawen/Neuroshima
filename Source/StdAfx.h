@@ -49,7 +49,7 @@
 #include "Utils/Logger.h"
 #include "Utils/Math.h"
 
-//#include "Renderer/Window/Window.h"
+#include "Renderer/Window/Window.h"
 
 /************************************************
  * Typedefs

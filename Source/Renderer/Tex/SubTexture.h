@@ -21,18 +21,14 @@ namespace Renderer
         private:
             sf::Vector2f _position;
 
-            sf::Vector2f _size;
-
-            int _id;
-
             Texture * texPtr;
 
         public:
-            SubTexture() : _position(), _size(), _id(), texPtr(nullptr)
+            SubTexture() : BaseTexture(), _position(), texPtr(nullptr)
             {}
 
-            SubTexture(sf::Vector2f pos, sf::Vector2f size, int id, Texture tPtr) :
-                _position(pos), _size(size), _id(id), texPtr(tPtr)
+            SubTexture(std::string alians, std::string group, std::string title, sf::Vector2f size, int id, sf::Vector2f pos, Texture * tex) :
+                BaseTexture(alians, group, title, size, id), _position(pos), texPtr(tex)
             {}
 
             ~SubTexture() {
@@ -40,26 +36,12 @@ namespace Renderer
             }
 
         public:
-            sf::Texture texture(const int &id) {
-              //  return texPtr->texture(_id).
-               // return // texPtr->texture(_id).
-                return sf::Texture;
-            }
-
-            sf::Texture texture(const std::string &name) {
-                return sf::Texture;
-            }
-
             void setPosition(sf::Vector2f pos) {
                 _position = pos;
             }
 
             void setSize(sf::Vector2f size) {
                 _size = size;
-            }
-
-            int id() const {
-                return _id;
             }
 
             sf::Vector2f position() const {

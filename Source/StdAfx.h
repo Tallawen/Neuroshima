@@ -13,7 +13,6 @@
 
 #include <cstdlib>
 #include <ctime>
-#include <cmath>
 
 #include <cassert>
 
@@ -44,8 +43,13 @@
  * Our
  ************************************************/
 
+//#include "Global.h"
+
 #include "Utils/Array2D.h"
 #include "Utils/Logger.h"
+#include "Utils/Math.h"
+
+//#include "Renderer/Window/Window.h"
 
 /************************************************
  * Typedefs

@@ -29,7 +29,7 @@ namespace Renderer
         bool Texture::detachSubTexture(int &id) {
             if (_subTexture.find(id) == _subTexture.end())
                 return false;
-            _subTextureNameIndex.erase(_subTexture[id]._alians)
+            _subTextureNameIndex.erase(_subTexture[id]._alians);
             _subTexture.erase(id);
             return true;
         }

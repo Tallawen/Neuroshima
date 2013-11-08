@@ -25,22 +25,20 @@ namespace Renderer
 
             sf::Vector2f _size;
 
+            int _id;
+
         public:
-            BaseTexture() : _alians(), _group(), _title(), _size()
+            BaseTexture() : _alians(), _group(), _title(), _size(), _id()
             {}
 
-            BaseTexture(std::string alians, std::string group, std::string title, sf::Vector2f size) :
-                _alians(alians), _group(group), _title(title), _size(size)
+            BaseTexture(std::string alians, std::string group, std::string title, sf::Vector2f size, int id) :
+                _alians(alians), _group(group), _title(title), _size(size), _id(id)
             {}
 
             virtual ~BaseTexture()
             {}
 
         public:
-            virtual sf::Texture texture(const int &id) = 0;
-
-            virtual sf::Texture texture(const std::string &name) = 0;
-
             void setAlians(std::string alians) {
                 _alians = alians;
             }
@@ -63,6 +61,10 @@ namespace Renderer
 
             sf::Vector2f size() const {
                 return _size;
+            }
+
+            int id() const {
+                return _id;
             }
 
         }; /* class BaseTexture */

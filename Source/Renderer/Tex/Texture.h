@@ -20,18 +20,12 @@ namespace Renderer
 
             std::map<std::string, int> _subTextureNameIndex;
 
-            int _id;
-
         public:
             Texture();
 
-            Texture(std::string alians, std::string group, std::string title, sf::Vector2f size, std::string fname, bool subTex, int id);
+            Texture(std::string alians, std::string group, std::string title, sf::Vector2f size, int id, std::string fname, bool subTex);
 
         public:
-            sf::Texture texture(const int &id);
-
-            sf::Texture texture(const std::string &name);
-
             void setFileName(std::string fname) {
                 _filename = fname;
             }
@@ -49,10 +43,6 @@ namespace Renderer
             bool detachSubTexture(int &id);
 
             bool detachSubTexture(std::string &name);
-
-            int id() const {
-                return _id;
-            }
 
         }; /* class Texture */
 

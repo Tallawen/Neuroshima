@@ -35,13 +35,13 @@ namespace Renderer {
 
         public:
             /************************************************/
-            void setFileName(const std::string &filename) {
+            void setFilename(const std::string &filename) {
                 _filename = filename;
             }
 
 
             /************************************************/
-            std::string fileName() const {
+            std::string filename() const {
                 return _filename;
             }
 

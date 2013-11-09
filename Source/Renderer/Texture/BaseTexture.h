@@ -12,7 +12,7 @@ namespace Renderer {
          ************************************************/
         class BaseTexture {
         private:
-            std::string _alians;
+            std::string _alias;
             std::string _group;
             std::string _title;
 
@@ -22,7 +22,7 @@ namespace Renderer {
         public:
             /************************************************/
             BaseTexture() : _size() {
-                _alians = "";
+                _alias = "";
                 _group  = "";
                 _title  = "";
 
@@ -40,14 +40,14 @@ namespace Renderer {
 
         public:
             /************************************************/
-            void setAlians(const std::string &alians) {
-                _alians = alians;
+            void setAlias(const std::string &alias) {
+                _alias = alias;
             }
 
 
             /************************************************/
-            std::string alians() const {
-                return _alians;
+            std::string alias() const {
+                return _alias;
             }
 
 

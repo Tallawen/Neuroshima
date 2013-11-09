@@ -1,30 +1,61 @@
-#ifndef __RENDERER_TEX_MANAGER_H__
-#define __RENDERER_TEX_MANAGER_H__
+#ifndef __RENDERER_TEXTURE_MANAGER_H__
+#define __RENDERER_TEXTURE_MANAGER_H__
 
 #include "../../StdAfx.h"
 #include "../../Utils/Identifier.h"
+
 #include "Texture.h"
 
-namespace Renderer
-{
-    namespace Tex
-    {
-        /*/*************************************************
-         * @ingroup RENDERER_TEX
-         * @class Manager Manager.h "Renderer/Tex/Manager.h"
-         *
-         * @brief Klasa obslugujaca tekstury
-         **************************************************/
-        class Manager
-                : protected Utils::Identifier
-        {
+namespace Renderer {
+
+    namespace Texture {
+
+        /**********************************************//**
+          @brief Klasa obslugujaca tekstury
+         ************************************************/
+        class Manager : protected Utils::Identifier {
         private:
-            //std::map<Texture, sf::Texture> _textures;
+            std::map<int, sf::Texture> textures;
 
-        }; /* class TextureManager */
+            /* TODO: Jednak textures muszą mieć osobne indexy :( albo i nie
+             * SubTexture muszą mieć też nadawane id z Managera (tylko kiedy i jak)
+             */
 
-    } /* namespace Tex */
+            std::map<int, Texture> texturesResource;
+            std::map<std::string/*grupa*/, std::map<std::string/*nazwa*/, int>> texturesIndexName;
 
-} /* namespace Renderer */
+            std::list<std::string> _loadGroup;
 
-#endif /* __RENDERER_TEX_MANAGER_H__ */
+        public:
+            Manager();
+            ~Manager();
+
+        public:
+            int attach(Texture texture);
+            //int attach(sf::Texture texture);
+
+            bool detach(const int &id);
+            bool detach(const std::string &group, const std::string &name);
+
+            bool fDetach(const int &id);
+
+           // int load();
+          //  int unload();
+
+      //      std::string loadGroup() const;
+
+        //    sf::Texture& texture();
+
+       //     Texture & textureResource();
+
+        private:
+            inline bool validTextureName(const Texture &texture) const;
+            inline std::string textureName(const Texture &texture) const;
+
+        };
+
+    }
+
+}
+
+#endif /*__RENDERER_TEXTURE_MANAGER_H__*/

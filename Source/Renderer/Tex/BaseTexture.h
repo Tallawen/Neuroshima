@@ -35,9 +35,6 @@ namespace Renderer
                 _alians(alians), _group(group), _title(title), _size(size), _id(id)
             {}
 
-            virtual ~BaseTexture()
-            {}
-
         public:
             void setAlians(std::string alians) {
                 _alians = alians;

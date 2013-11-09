@@ -1,7 +1,7 @@
 #ifndef __UTILS_IDENTIFIER_H__
 #define __UTILS_IDENTIFIER_H__
 
-#include <unordered_map>
+#include <map>
 
 namespace Utils {
 
@@ -10,18 +10,13 @@ namespace Utils {
      ************************************************/
     class Identifier {
     private:
-        static std::unordered_map<std::string, int> _ID; /**< Mapa przechowujaca następną wartość @b ID dla danej grupy */
+        static std::map<std::string, int> _ID; /**< Mapa przechowujaca następną wartość @b ID dla danej grupy */
 
         std::string group; /**< Nazwa grupy */
 
     public:
         /**********************************************//**/
-        Identifier(std::string group) {
-            this->group = group;
-
-            if(_ID.find(group) == _ID.end())
-                _ID[group] = 0;
-        }
+        Identifier(std::string group);
 
     public:
         /**********************************************//**
@@ -39,7 +34,6 @@ namespace Utils {
         }
     };
 
-    std::unordered_map<std::string, int> Identifier::_ID;
 }
 
 #endif /*__UTILS_IDENTIFIER_H__*/

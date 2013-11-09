@@ -9,6 +9,12 @@ namespace Renderer
 
     namespace Tex
     {
+        /*/*************************************************
+        * @ingroup RENDERER_TEX
+        * @class Texture Texture.h "Renderer/Tex/Texture.h"
+        *
+        * @brief Klasa odpowiedzialna za przechowywanie informacji o teksturach
+        **************************************************/
         class Texture : public BaseTexture
         {
         private:
@@ -24,6 +30,11 @@ namespace Renderer
             Texture();
 
             Texture(std::string alians, std::string group, std::string title, sf::Vector2f size, int id, std::string fname, bool subTex);
+
+            ~Texture() {
+                _subTexture.clear();
+                _subTextureNameIndex.clear();
+            }
 
         public:
             void setFileName(std::string fname) {

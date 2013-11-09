@@ -19,7 +19,7 @@ namespace Renderer
                 : protected Utils::Identifier
         {
         private:
-            std::map<Texture, sf::Texture> _textures;
+            //std::map<Texture, sf::Texture> _textures;
 
         }; /* class TextureManager */
 

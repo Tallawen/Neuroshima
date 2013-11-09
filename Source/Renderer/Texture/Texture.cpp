@@ -1,47 +1,64 @@
 #include "Texture.h"
 
-namespace Renderer
-{
-    namespace Tex
-    {
-        Texture::Texture() : BaseTexture(), _filename(), _subTex(false), _id()
-        {
+namespace Renderer {
+
+    namespace Texture {
+
+        /************************************************/
+        Texture::Texture() : BaseTexture() {
+            _filename = "";
+
             _subTexture.clear();
             _subTextureNameIndex.clear();
         }
 
-        Texture::Texture(std::string alians, std::string group, std::string title, sf::Vector2f size, int id
-                , std::string fname, bool subTex)
-            : BaseTexture(alians, group, title, size, id), _filename(fname), _subTex(subTex)
-        {
-            _subTexture.clear();
-            _subTextureNameIndex.clear();
+
+        /************************************************/
+        Texture::Texture(const std::string &alians, const std::string &group, const std::string &title, const sf::Vector2f &size, const std::string &filename, const int &id)
+            : BaseTexture() {
+
+            setAlians(alians);
+            setGroup(group);
+            setTitle(title);
+            setSize(size);
+            setID(id);
+
+            _filename = filename;
         }
 
-        bool Texture::attachSubTexture(SubTexture &sub) {
-            if (_subTexture.find(sub.id()) != _subTexture.end())
+
+        /************************************************/
+        bool Texture::attachSubTexture(const SubTexture &sub) {
+            if(_subTexture.find(sub.id()) != _subTexture.end())
                 return false;
+
             _subTexture.insert(std::pair<int, SubTexture>(sub.id(), sub));
             _subTextureNameIndex.insert(std::pair<std::string, int>(sub.alians(), sub.id()));
-            return true;
+
+          return true;
         }
 
-        bool Texture::detachSubTexture(int &id) {
-            if (_subTexture.find(id) == _subTexture.end())
+
+        /************************************************/
+        bool Texture::detachSubTexture(const int &id) {
+            if(_subTexture.find(id) == _subTexture.end())
                 return false;
-            _subTextureNameIndex.erase(_subTexture[id]._alians);
+
+            _subTextureNameIndex.erase(_subTexture[id].alians());
             _subTexture.erase(id);
-            return true;
+
+          return true;
         }
 
-        bool Texture::detachSubTexture(std::string &name) {
+
+        /************************************************/
+        bool Texture::detachSubTexture(const std::string &name) {
             if (_subTextureNameIndex.find(name) == _subTextureNameIndex.end())
                 return false;
-            _subTexture.erase(_subTextureNameIndex[name]);
-            _subTextureNameIndex.erase(name);
-            return true;
+
+          return detachSubTexture(_subTextureNameIndex[name]);
         }
 
-    } /*namespace Tex */
+    } /*namespace Texture */
 
 } /* namespace Renderer */

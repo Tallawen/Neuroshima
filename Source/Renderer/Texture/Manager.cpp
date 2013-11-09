@@ -1,4 +1,4 @@
-#include "TextureManager.h"
+#include "Manager.h"
 
 namespace Renderer
 {

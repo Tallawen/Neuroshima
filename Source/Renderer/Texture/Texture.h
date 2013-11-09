@@ -1,64 +1,72 @@
-#ifndef __RENDERER_TEX_TEXTURE_H__
-#define __RENDERER_TEX_TEXTURE_H__
+#ifndef __RENDERER_TEXTURE_TEXTURE_H__
+#define __RENDERER_TEXTURE_TEXTURE_H__
 
 #include "../../StdAfx.h"
+
+#include "BaseTexture.h"
 #include "SubTexture.h"
 
-namespace Renderer
-{
+namespace Renderer {
 
-    namespace Tex
-    {
-        /*/*************************************************
-        * @ingroup RENDERER_TEX
-        * @class Texture Texture.h "Renderer/Tex/Texture.h"
-        *
-        * @brief Klasa odpowiedzialna za przechowywanie informacji o teksturach
-        **************************************************/
-        class Texture : public BaseTexture
-        {
+    namespace Texture {
+
+        /**********************************************//**
+         @brief Klasa odpowiedzialna za przechowywanie informacji o teksturach
+        ************************************************/
+        class Texture : public BaseTexture {
         private:
             std::string _filename;
-
-            bool _subTex;
 
             std::map<int, SubTexture> _subTexture;
 
             std::map<std::string, int> _subTextureNameIndex;
 
         public:
+            /************************************************/
             Texture();
 
-            Texture(std::string alians, std::string group, std::string title, sf::Vector2f size, int id, std::string fname, bool subTex);
 
-            ~Texture() {
-                _subTexture.clear();
-                _subTextureNameIndex.clear();
-            }
+            /************************************************/
+            Texture(const std::string &alians, const std::string &group, const std::string &title, const sf::Vector2f &size, const std::string &filename, const int &id);
+
+
+            /************************************************/
+            ~Texture();
 
         public:
-            void setFileName(std::string fname) {
-                _filename = fname;
+            /************************************************/
+            void setFileName(const std::string &filename) {
+                _filename = filename;
             }
 
+
+            /************************************************/
             std::string fileName() const {
                 return _filename;
             }
 
+
+            /************************************************/
             bool haveSubTexture() const {
-                return _subTex;
+                return !_subTexture.empty();
             }
 
-            bool attachSubTexture(SubTexture &sub);
 
-            bool detachSubTexture(int &id);
+            /************************************************/
+            bool attachSubTexture(const SubTexture &sub);
 
-            bool detachSubTexture(std::string &name);
+
+            /************************************************/
+            bool detachSubTexture(const int &id);
+
+
+            /************************************************/
+            bool detachSubTexture(const std::string &name);
 
         }; /* class Texture */
 
-    } /* namespace Tex */
+    } /* namespace Texture */
 
 } /* namespace Renderer */
 
-#endif /* __RENDERER_TEX_TEXTURE_H__ */
+#endif /* __RENDERER_TEXTURE_TEXTURE_H__ */

@@ -2,8 +2,8 @@
 #define __RENDERER_TEX_MANAGER_H__
 
 #include "../../StdAfx.h"
-#include "../../Utils/Pattern/Singleton.h"
 #include "../../Utils/Identifier.h"
+#include "Texture.h"
 
 namespace Renderer
 {
@@ -11,13 +11,15 @@ namespace Renderer
     {
         /*/*************************************************
          * @ingroup RENDERER_TEX
-         * @class TextureManager TextureManager.h "Renderer/Tex/TextureManager.h"
+         * @class Manager Manager.h "Renderer/Tex/Manager.h"
          *
          * @brief Klasa obslugujaca tekstury
          **************************************************/
         class Manager
                 : protected Utils::Identifier
         {
+        private:
+            std::map<Texture, sf::Texture> _textures;
 
         }; /* class TextureManager */
 

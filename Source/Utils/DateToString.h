@@ -6,126 +6,220 @@
 #include <ctime>
 #include <sstream>
 
-/************************************************
- * funkcja zwraca aktualna date jako string
- * w formacie zaleznym od argumentu
- * np: dateToString("%D.%M.%Y); zwroci nam odpowiedznio:
- * dzin.miesiac.rok
- * wszystkie argumenty opisane ponizej
- ************************************************/
-std::string dateToString(std::string argument)
+ namespace Utils
 {
-	const char * dzienTygodnia[] = { "Niedziela", "Poniedzialek",
-	    "Wtorek", "Sroda", "Czwartek", "Piatek", "Sobota" };
-    tm * newTime;
-    time_t getTime;
-    time(&getTime);
-    newTime = localtime(&getTime);
-    std::stringstream wynik;
-    for (unsigned int i = 0; i < argument.length(); i++)
+    namespace DateToString
     {
-        if (argument[i] == '%' && i + 1 < argument.length())
+        class Date
         {
-            switch (argument[i+1])
-            {
-                case 'C'://data rrrr-mm-dd
-                          {
-                              wynik << newTime->tm_year+1900<<'-';
-                              if (newTime->tm_mon < 9)
-                                  wynik << "0" << newTime->tm_mon + 1;
-                              else
-                                  wynik << newTime->tm_mon+1;
-                              wynik<<'-';
-                              if (newTime->tm_mday < 10)
-                                  wynik << "0" << newTime->tm_mday;
-                              else
-                                  wynik << newTime->tm_mday;
-                              i++;
-                              break;
-                          }
-                case 'c':// rrrr-mm-dd : hh:mm:ss
-                          {
-                              wynik << newTime->tm_year+1900<<'-';
-                              if (newTime->tm_mon < 9)
-                                  wynik << "0" << newTime->tm_mon + 1;
-                              else
-                                  wynik << newTime->tm_mon+1;
-                              wynik<<'-';
-                              if (newTime->tm_mday < 10)
-                                  wynik << "0" << newTime->tm_mday;
-                              else
-                                  wynik << newTime->tm_mday;
-                              wynik << " : ";
-                              wynik << newTime->tm_hour;
-                              wynik << ':';
-                              if (newTime->tm_min < 10)
-                                  wynik << "0" << newTime->tm_min;
-                              else
-                                  wynik << newTime->tm_min;
-                              wynik << ':';
-                              if (newTime->tm_sec < 10)
-                                  wynik << "0" << newTime->tm_sec;
-                              else
-                                  wynik << (newTime->tm_sec);
-                              i++; break;
-                          }
-                case 'D'://dzien
-                          if (newTime->tm_mday < 10)
-                              wynik << "0" << newTime->tm_mday;
-                          else
-                              wynik << newTime->tm_mday;
-                          i++; break;
-                case 'M'://miesiac
-                          if (newTime->tm_mon < 9)
-                              wynik << "0" << newTime->tm_mon + 1;
-                          else
-                              wynik << newTime->tm_mon+1;
-                          i++; break;
-                case 'Y'://rok
-                          wynik << newTime->tm_year+1900; i++; break;
-                case 'h'://godzina 24-h
-                          wynik << newTime->tm_hour; i++; break;
-                case 'm'://minuty
-                          if (newTime->tm_min < 10)
-                              wynik << "0" << newTime->tm_min;
-                          else
-                              wynik << newTime->tm_min;
-                          i++; break;
-                case 's'://sekundy
-                          if (newTime->tm_sec < 10)
-                              wynik << "0" << newTime->tm_sec;
-                          else
-                              wynik << (newTime->tm_sec);
-                          i++; break;
-                case 't'://godzina w formacie 12-godzinnym
-                          if (newTime->tm_hour < 13)
-                          {
-                              if (newTime->tm_hour == 0)
-                                  wynik << "12";
-                              else
-                                  wynik << newTime->tm_hour;
-                          }
-                          else 
-                              wynik << newTime->tm_hour - 12;
-                          i++; break;
-                case 'p':// AM/PM
-                          if (newTime->tm_hour < 12)
-                              wynik << "AM";
-                          else
-                              wynik << "PM";
-                          i++; break;
-                case 'W'://dzien tygodnia
-                          wynik << dzienTygodnia[newTime->tm_wday]; i++; break;
-                default:// gdy zadna opcja nie pasuje - wypisuje znak %
-                          wynik << "%"; break;
-            }
+        private:
+            tm * currentTime;
+            std::stringstream result;
+
+        public:
+            Date();
+            //~Date();
+
+        public:
+            std::string Format(const std::string &format);
+            std::string GetDate();
+            std::string GetTime();
+            std::string GetDateTime();
+            void Refresh();
+        private:
+            inline void day();
+            inline void month();
+            inline void year();
+            inline void hour24();
+            inline void hour12();
+            inline void min();
+            inline void sec();
+            inline void am_pm();
+        };
+
+        //*********************************************
+        Date::Date()
+        {
+            Refresh();
         }
-        else
+
+        /*********************************************
+         *  Pobiera aktualny czas z systemu
+         ********************************************/
+        void Date::Refresh()
         {
-            wynik << argument[i];
+            time_t getTime;
+            time(&getTime);
+            currentTime = localtime(&getTime);
+        }
+
+        /*********************************************
+         * Data w formacie yyyy-mm-dd
+         ********************************************/
+        std::string Date::GetDate()
+        {
+            result.str(std::string());
+            year();
+            result << '-';
+            month();
+            result << '-';
+            day();
+            return result.str();
+        }
+
+        /********************************************
+         * Godzina w formacie hh:mm:ss
+         ********************************************/
+        std::string Date::GetTime()
+        {
+            result.str(std::string());
+            hour24();
+            result << ':';
+            min();
+            result << ':';
+            sec();
+            return result.str();
+        }
+
+        /******************************************
+         * Data i godzina w formacie yyyy-mm-dd : hh:mm:ss
+         ******************************************/
+        std::string Date::GetDateTime()
+        {
+            result.str(std::string());
+            year();
+            result << '-';
+            month();
+            result << '-';
+            day();
+            result << " : ";
+            hour24();
+            result << ':';
+            min();
+            result << ':';
+            sec();
+            return result.str();
+        }
+
+        /********************************************
+         * Funkcja zwracaj¹ca date w podanym formacie
+         * np: Format("%D.%M.%Y r")
+         * zwroci : dzien:miesiac:rok r
+         * nierozpoznane argumenty sa przepisywane
+         * wszystkie argumenty opisane ponizej
+         *******************************************/
+        std::string Date::Format(const std::string &format)
+        {
+            result.str(std::string());
+            for (unsigned int i = 0; i < format.length(); i++)
+                {
+                    if (format[i] == '%' && i + 1 < format.length())
+                    {
+                        switch (format[i+1])
+                        {
+                            case 'D'://dzien
+                                      day();
+                                      i++; break;
+                            case 'M'://miesiac
+                                      month();
+                                      i++; break;
+                            case 'Y'://rok
+                                      year();
+                                      i++; break;
+                            case 'h'://godzina 24-h
+                                      hour24();
+                                      i++; break;
+                            case 'm'://minuty
+                                      min();
+                                      i++; break;
+                            case 's'://sekundy
+                                      sec();
+                                      i++; break;
+                            case 't'://godzina w formacie 12-godzinnym
+                                      hour12();
+                                      i++; break;
+                            case 'p':// AM/PM
+                                      am_pm();
+                                      i++; break;
+                            default:// gdy zadna opcja nie pasuje - wypisuje znak %
+                                      result << "%"; break;
+                        }
+                    }
+                    else
+                    {
+                        result << format[i];
+                    }
+                }
+            return result.str();
+        }
+
+        //********************************************
+        inline void Date::day()
+        {
+            if (currentTime->tm_mday < 10)
+                result << '0';
+            result << currentTime->tm_mday;
+        }
+
+        //********************************************
+        inline void Date::month()
+        {
+            if (currentTime->tm_mon < 9)
+                result << '0';
+            result << currentTime->tm_mon + 1;
+        }
+
+        //********************************************
+        inline void Date::year()
+        {
+            result << currentTime->tm_year + 1900;
+        }
+
+        //********************************************
+        inline void Date::hour24()
+        {
+            result << currentTime->tm_hour;
+        }
+
+        //********************************************
+        inline void Date::hour12()
+        {
+            if (currentTime->tm_hour < 13)
+            {
+                if (currentTime->tm_hour == 0)
+                    result << "12";
+                else
+                    result << currentTime->tm_hour;
+            }
+            else
+                result << currentTime->tm_hour - 12;
+        }
+
+        //********************************************
+        inline void Date::min()
+        {
+            if (currentTime->tm_min < 10)
+                result << '0';
+            result << currentTime->tm_min;
+        }
+
+        //********************************************
+        inline void Date::sec()
+        {
+            if (currentTime->tm_sec < 10)
+                result << '0';
+            result << currentTime->tm_sec;
+        }
+
+        //********************************************
+        inline void Date::am_pm()
+        {
+            if (currentTime->tm_hour < 12)
+                result << "AM";
+            else
+                result << "PM";
         }
     }
-    return wynik.str();
 }
 
 #endif /*__UTILS_DATE_TO_STRING__*/

@@ -94,8 +94,9 @@ namespace Utils {
 
     /************************************************/
     void Logger::welcomeMsg() {
+        Utils::DateToString::Date date;
         *stream << std::endl
-                << "--- Log utworzony " << dateToString("%C") << std::endl //data w formacie rrrr-mm-dd : hh:mm:ss
+                << "--- Log utworzony " << date.GetDateTime() << std::endl //data w formacie rrrr-mm-dd : hh:mm:ss
                 << std::endl << std::endl;
     }
 

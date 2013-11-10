@@ -48,7 +48,7 @@
 #include "Utils/Array2D.h"
 #include "Utils/Logger.h"
 #include "Utils/Math.h"
-#include "Utils/DateToString.h"
+#include "Utils/Date.h"
 
 #include "Renderer/Window/Window.h"
 

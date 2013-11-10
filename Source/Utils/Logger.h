@@ -7,8 +7,10 @@
 #include <string>
 #include <map>
 
+#include "Date.h"
+
 #ifndef LOG_INFO
-#define LOG_INFO(lmsg) "DATE" << "| " << __FILE__ << "| " << __LINE__ << "| " << lmsg << "| " << __FUNCTION__ << ": "
+#define LOG_INFO(lmsg) Utils::Date::GetDateTime() << "| " << __FILE__ << "| " << __LINE__ << "| " << lmsg << "| " << __FUNCTION__ << ": "
 #endif /*LOG_INFO*/
 
 namespace Utils {

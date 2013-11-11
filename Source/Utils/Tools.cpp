@@ -17,7 +17,7 @@ namespace Utils {
                   return true;
                 }
 
-                file.good();
+                file.close();
               return false;
             }
 

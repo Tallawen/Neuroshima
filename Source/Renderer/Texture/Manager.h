@@ -262,7 +262,7 @@ namespace Renderer {
             /**********************************************//**
               @brief Zwraca drzewo załadowanych textur do pamięci
              ************************************************/
-            //std::string showTextures() const; TODO: Do zaimplementowania
+            std::string showTextures();
 
 
             /**********************************************//**

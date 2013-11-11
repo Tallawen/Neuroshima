@@ -120,6 +120,33 @@ namespace Renderer {
 
 
         /************************************************/
+        std::string Manager::showTextures() {
+            std::stringstream tree;
+
+            std::map<std::string, int>::iterator it;
+
+            std::list<std::string>::iterator groupIt = _loadGroup.begin();
+
+            tree << "[Załadowane textury]" << std::endl;
+
+            while(groupIt != _loadGroup.end()) { /* Iteracja po grupach */
+                tree << *groupIt << std::endl;
+
+                 it = texturesIndexName[*groupIt].begin();
+                while(it != texturesIndexName[*groupIt].end()) { /* Iteracja po texturach należących do danej grupy */
+                    if(textureExists(it->second)) /* Gdy textura jest załadowana */
+                        tree << std::string(2, ' ') << "|_ id = " << /*std::setw(4) <<*/ it->second << ", name = \"" << it->first << "\"" << std::endl;
+
+                    ++it;
+                }
+
+                ++groupIt;
+            }
+          return tree.str();
+        }
+
+
+        /************************************************/
         std::string Manager::showTexturesResource() {
             std::stringstream tree;
             std::string currentGroup = "";

@@ -30,6 +30,7 @@
 #include <functional>
 #include <exception>
 #include <algorithm>
+#include <iomanip>
 
 /************************************************
  * SFML

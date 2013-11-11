@@ -65,11 +65,11 @@ namespace Renderer {
 
 
             /************************************************/
-            bool valid();
+            bool valid() const;
 
 
             /************************************************/
-            std::string name();
+            std::string name() const;
 
         }; /* class Texture */
 

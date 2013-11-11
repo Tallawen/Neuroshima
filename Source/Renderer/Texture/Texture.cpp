@@ -67,7 +67,7 @@ namespace Renderer {
 
 
         /************************************************/
-        bool Texture::valid() {
+        bool Texture::valid() const {
             if(Utils::Tools::File::exists(_filename)) {
                 LOG << LOG_INFO(LMsg::Error) << "Plik: \"" << _filename << "\" nie istnieje!!!" << std::endl;
               return false;
@@ -89,7 +89,7 @@ namespace Renderer {
 
 
         /************************************************/
-        std::string Texture::name() {
+        std::string Texture::name() const {
             if(alias().length() > 0)
                 return alias();
 

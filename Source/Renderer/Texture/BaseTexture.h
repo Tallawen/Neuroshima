@@ -104,7 +104,7 @@ namespace Renderer {
             /**********************************************//**
               @brief Metoda virutalna odnośnie sprawdzania poprawności texutry
              ************************************************/
-            virtual bool valid() {
+            virtual bool valid() const{
                 if(group().length() > 0) {
                     LOG << LOG_INFO(LMsg::Error) << "Textura: group = \"" << group() << "\", alias = \"" << alias()
                                                  << "\", title = \"" << title() << "\" musi przynależeć do grupy" << std::endl;
@@ -123,7 +123,7 @@ namespace Renderer {
             /**********************************************//**
               @brief Metoda virutalna zwracająca nazwę textury (po jakiej następuje odwołanie do niej)
              ************************************************/
-            virtual std::string name() {
+            virtual std::string name() const{
                 if(alias().length() > 0)
                     return alias();
 

@@ -120,6 +120,47 @@ namespace Renderer {
 
 
         /************************************************/
+        std::string Manager::showTexturesResource() {
+            std::stringstream tree;
+            std::string currentGroup = "";
+
+            std::map<std::string, int>::iterator it;
+            std::map<std::string, int>::iterator subIt; /* Iterator po subtexturach */
+
+            auto groupIt = texturesIndexName.begin();
+
+            tree << "[Baza textur]" << std::endl;
+
+            while(groupIt != texturesIndexName.end()) { /* Iteracja po grupach */
+                it = groupIt->second.begin();
+
+                while(it != groupIt->second.end()) { /* Iteracja po texturach należących do danej grupy */
+                    if(textureResourceExists(it->second)) { /* Gdy textura istnieje w bazie */
+
+                        if(groupIt->first.compare(currentGroup)) { /* Gdy nie została jeszcze wypisana jej grupa w drzewie */
+                            currentGroup = groupIt->first;
+                            tree << currentGroup << std::endl;
+                        }
+
+                        tree << std::string(2, ' ') << "|_ id = " << /*std::setw(4) <<*/ it->second << ", name = \"" << it->first << "\"" << std::endl;
+
+                         subIt = texturesResource[it->second]._subTextureNameIndex.begin();
+                        while(subIt != texturesResource[it->second]._subTextureNameIndex.end()) { /* Wypisujemy subtextury */
+                            tree << std::string(6, ' ') << "|_ id = " << /*std::setw(4) <<*/ subIt->second << ", name = \"" << subIt->first << "\"" << std::endl;
+
+                            ++subIt;
+                        }
+
+                    }
+                    ++it;
+                }
+                ++groupIt;
+            }
+          return tree.str();
+        }
+
+
+        /************************************************/
         bool Manager::textureExists(const int &id, const bool &printLog) const {
             bool exists = textures.find(id) != textures.end();
 

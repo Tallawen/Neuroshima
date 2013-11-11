@@ -5,6 +5,7 @@
 #include "../../Utils/Identifier.h"
 
 #include "Texture.h"
+#include "SubTexture.h"
 
 namespace Renderer {
 
@@ -267,7 +268,7 @@ namespace Renderer {
             /**********************************************//**
               @brief Zwraca drzewo załadowanych textur do bazy
              ************************************************/
-            //std::string showTexturesResource() const; TODO: Do zaimplementowania
+            std::string showTexturesResource();
 
             //sf::Texture& texture();
 

@@ -50,6 +50,7 @@
 #include "Utils/Math.h"
 #include "Utils/Date.h"
 
+#include "Renderer/Window/FPSCounter.h"
 #include "Renderer/Window/Window.h"
 
 /************************************************

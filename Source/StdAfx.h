@@ -48,6 +48,7 @@
 #include "Utils/Array2D.h"
 #include "Utils/Logger.h"
 #include "Utils/Math.h"
+#include "Utils/Tools.h"
 
 #include "Renderer/Window/Window.h"
 

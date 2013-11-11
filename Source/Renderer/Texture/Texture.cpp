@@ -39,7 +39,7 @@ namespace Renderer {
                 return false;
 
             _subTexture.insert(std::pair<int, SubTexture>(sub.id(), sub));
-            _subTextureNameIndex.insert(std::pair<std::string, int>(sub.alias(), sub.id()));
+            _subTextureNameIndex.insert(std::pair<std::string, int>(sub.name(), sub.id()));
 
           return true;
         }
@@ -50,7 +50,7 @@ namespace Renderer {
             if(_subTexture.find(id) == _subTexture.end())
                 return false;
 
-            _subTextureNameIndex.erase(_subTexture[id].alias());
+            _subTextureNameIndex.erase(_subTexture[id].name());
             _subTexture.erase(id);
 
           return true;
@@ -68,18 +68,18 @@ namespace Renderer {
 
         /************************************************/
         bool Texture::valid() const {
-            if(Utils::Tools::File::exists(_filename)) {
+            if(!Utils::Tools::File::exists(_filename)) {
                 LOG << LOG_INFO(LMsg::Error) << "Plik: \"" << _filename << "\" nie istnieje!!!" << std::endl;
               return false;
             }
 
-            if(group().length() > 0) {
+            if(group().length() <= 0) {
                 LOG << LOG_INFO(LMsg::Error) << "Textura: group = \"" << group() << "\", alias = \"" << alias()
                                              << "\", title = \"" << title() << "\", filename = \"" << _filename << "\" musi przynależeć do grupy" << std::endl;
               return false;
             }
 
-            if(name().length() > 0) {
+            if(name().length() <= 0) {
                 LOG << LOG_INFO(LMsg::Error) << "Nie można utwożyć nazwy dla textury!!!" << std::endl;
               return false;
             }

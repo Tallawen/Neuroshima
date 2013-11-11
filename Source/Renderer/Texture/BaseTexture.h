@@ -105,13 +105,13 @@ namespace Renderer {
               @brief Metoda virutalna odnośnie sprawdzania poprawności texutry
              ************************************************/
             virtual bool valid() const{
-                if(group().length() > 0) {
+                if(group().length() <= 0) {
                     LOG << LOG_INFO(LMsg::Error) << "Textura: group = \"" << group() << "\", alias = \"" << alias()
                                                  << "\", title = \"" << title() << "\" musi przynależeć do grupy" << std::endl;
                   return false;
                 }
 
-                if(name().length() > 0) {
+                if(name().length() <= 0) {
                     LOG << LOG_INFO(LMsg::Error) << "Nie można utwożyć nazwy dla textury!!!" << std::endl;
                   return false;
                 }

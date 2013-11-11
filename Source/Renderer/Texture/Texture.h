@@ -14,6 +14,8 @@ namespace Renderer {
          @brief Klasa odpowiedzialna za przechowywanie informacji o teksturach
         ************************************************/
         class Texture : public BaseTexture {
+            friend class Manager;
+
         private:
             std::string _filename;
 

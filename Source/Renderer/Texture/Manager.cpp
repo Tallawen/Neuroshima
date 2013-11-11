@@ -38,6 +38,40 @@ namespace Renderer {
 
 
         /************************************************/
+        int Manager::attachSub(const int &id, SubTexture &subtexture) {
+            if(!textureResourceExists(id))
+                return -1;
+
+            subtexture.setGroup(texturesResource[id].group());
+            if(!subtexture.valid())
+                return -1;
+
+            subtexture.setID(newID());
+
+            texturesResource[id].attachSubTexture(subtexture);
+          return subtexture.id();
+        }
+
+
+        /************************************************/
+        int Manager::attachSub(const std::string &group, const std::string &name, SubTexture &subtexture) {
+            if(!textureResourceExists(group, name))
+                return -1;
+
+          return attachSub(texturesIndexName[group][name], subtexture);
+        }
+
+
+        /************************************************/
+        int Manager::attachSub(const Texture &texture, SubTexture &subtexture) {
+            if(!texture.valid())
+                return -1;
+
+          return attachSub(texture.group(), texture.name(), subtexture);
+        }
+
+
+        /************************************************/
         bool Manager::detach(const int &id) {
             if(!textureResourceExists(id))
                 return false;

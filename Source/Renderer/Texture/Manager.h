@@ -62,7 +62,7 @@ namespace Renderer {
 
               @return Zwraca ID gdy subtextura zostanie dodana lub wartość < od @b 0 gdy wystąpi bład
              ************************************************/
-            //int attachSub(const int &id, SubTexture subtexture);
+            int attachSub(const int &id, SubTexture &subtexture);
 
 
             /**********************************************//**
@@ -74,7 +74,7 @@ namespace Renderer {
 
               @return Zwraca ID gdy subtextura zostanie dodana lub wartość < od @b 0 gdy wystąpi bład
              ************************************************/
-            //int attachSub(const std::string &group, const std::string &name, SubTexture subtexture); TODO: Do zaimplementowania
+            int attachSub(const std::string &group, const std::string &name, SubTexture &subtexture);
 
 
             /**********************************************//**
@@ -85,7 +85,7 @@ namespace Renderer {
 
               @return Zwraca ID gdy subtextura zostanie dodana lub wartość < od @b 0 gdy wystąpi bład
              ************************************************/
-            //int attachSub(const Texture &texture, SubTexture subtexture); TODO: Do zaimplementowania TODO: Do zaimplementowania
+            int attachSub(const Texture &texture, SubTexture &subtexture);
 
 
             /**********************************************//**

@@ -65,6 +65,47 @@ namespace Renderer {
           return detachSubTexture(_subTextureNameIndex[name]);
         }
 
+
+        /************************************************/
+        bool Texture::valid() {
+            if(Utils::Tools::File::exists(_filename)) {
+                LOG << LOG_INFO(LMsg::Error) << "Plik: \"" << _filename << "\" nie istnieje!!!" << std::endl;
+              return false;
+            }
+
+            if(group().length() > 0) {
+                LOG << LOG_INFO(LMsg::Error) << "Textura: group = \"" << group() << "\", alias = \"" << alias()
+                                             << "\", title = \"" << title() << "\", filename = \"" << _filename << "\" musi przynależeć do grupy" << std::endl;
+              return false;
+            }
+
+            if(name().length() > 0) {
+                LOG << LOG_INFO(LMsg::Error) << "Nie można utwożyć nazwy dla textury!!!" << std::endl;
+              return false;
+            }
+
+          return true;
+        }
+
+
+        /************************************************/
+        std::string Texture::name() {
+            if(alias().length() > 0)
+                return alias();
+
+            if(title().length() > 0)
+                return title();
+
+            if(filename().length() <=0)
+                return "";
+
+             size_t pos = _filename.find_last_of('\\');
+            if(pos != std::string::npos)
+                return _filename.substr(pos, _filename.size());
+
+          return filename();
+        }
+
     } /*namespace Texture */
 
 } /* namespace Renderer */

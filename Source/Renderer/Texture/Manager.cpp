@@ -18,22 +18,18 @@ namespace Renderer {
 
         /************************************************/
         int Manager::attach(Texture texture) {
-            if(!validTextureName(texture)) {
-                LOG << LOG_INFO(LMsg::Error) << "Niepoprawna nazwa textury: group = \"" << texture.group() << "\", alias = \"" << texture.alias()
-                                             << "\", title = \"" << texture.title() << "\", filename = \"" << texture.filename() << "\"" << std::endl;
-              return -1;
-            }
+            if(!texture.valid())
+                return -1;
 
-            if(texturesIndexName[texture.group()].find(textureName(texture)) != texturesIndexName[texture.group()].end()) {
-                LOG << LOG_INFO(LMsg::Error) << "Texktura o takiej nazwie już istnieje: group = \"" << texture.group() << "\", alias = \"" << texture.alias()
+            if(texturesIndexName[texture.group()].find(texture.name()) != texturesIndexName[texture.group()].end()) {
+                LOG << LOG_INFO(LMsg::Error) << "Textura o takiej nazwie już istnieje: group = \"" << texture.group() << "\", alias = \"" << texture.alias()
                                              << "\", title = \"" << texture.title() << "\", filename = \"" << texture.filename() << "\"" << std::endl;
-
               return -1;
             }
 
             texture.setID(newID());
             texturesResource[texture.id()] = texture;
-            texturesIndexName[texture.group()][textureName(texture)] = texture.id();
+            texturesIndexName[texture.group()][texture.name()] = texture.id();
 
             // TODO: Dodać loga typu debug o informacji że textura zaotała dodana (ten typ poestanie dopiero po złączeniu Mastera i MTexture)
 
@@ -52,7 +48,7 @@ namespace Renderer {
             }
 
              Texture texture = texturesResource[id];
-            texturesIndexName[texture.group()].erase(textureName(texture));
+            texturesIndexName[texture.group()].erase(texture.name());
             texturesResource.erase(id);
             textures.erase(id);
 
@@ -81,7 +77,7 @@ namespace Renderer {
             if(texturesResource.find(id) != texturesResource.end()) {
                  Texture texture = texturesResource[id];
                 LOG << LOG_INFO(LMsg::Info) << "Wymuszono usunięcie podpiętej textury (id = " << id << "): group = \"" << texture.group()
-                                            << "\", name = \"" << textureName(texture) << "\"" << std::endl;
+                                            << "\", name = \"" << texture.name() << "\"" << std::endl;
 
                 detach(id);
             }
@@ -136,21 +132,6 @@ namespace Renderer {
                 LOG << LOG_INFO(LMsg::Error) << "Textura nie istnieje w bazie: group = \"" << group << "\", name = \"" << name << "\"" << std::endl;
 
           return exists;
-        }
-
-
-        /************************************************/
-        inline bool Manager::validTextureName(const Texture &texture) const {
-            if(/*texture.group().length() > 0 &&*/ (texture.alias().length() > 0 || texture.title().length() > 0))
-                return true;
-
-          return false;
-        }
-
-
-        /************************************************/
-        inline std::string Manager::textureName(const Texture &texture) const {
-          return texture.alias().length() > 0 ? texture.alias() : texture.title();
         }
 
     }

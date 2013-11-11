@@ -63,6 +63,14 @@ namespace Renderer {
             /************************************************/
             bool detachSubTexture(const std::string &name);
 
+
+            /************************************************/
+            bool valid();
+
+
+            /************************************************/
+            std::string name();
+
         }; /* class Texture */
 
     } /* namespace Texture */

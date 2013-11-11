@@ -36,7 +36,7 @@ namespace Renderer {
 
 
             /************************************************/
-            ~BaseTexture() { }
+            virtual ~BaseTexture() { }
 
         public:
             /************************************************/
@@ -99,6 +99,40 @@ namespace Renderer {
             int id() const {
                 return _id;
             }
+
+
+            /**********************************************//**
+              @brief Metoda virutalna odnośnie sprawdzania poprawności texutry
+             ************************************************/
+            virtual bool valid() {
+                if(group().length() > 0) {
+                    LOG << LOG_INFO(LMsg::Error) << "Textura: group = \"" << group() << "\", alias = \"" << alias()
+                                                 << "\", title = \"" << title() << "\" musi przynależeć do grupy" << std::endl;
+                  return false;
+                }
+
+                if(name().length() > 0) {
+                    LOG << LOG_INFO(LMsg::Error) << "Nie można utwożyć nazwy dla textury!!!" << std::endl;
+                  return false;
+                }
+
+              return true;
+            }
+
+
+            /**********************************************//**
+              @brief Metoda virutalna zwracająca nazwę textury (po jakiej następuje odwołanie do niej)
+             ************************************************/
+            virtual std::string name() {
+                if(alias().length() > 0)
+                    return alias();
+
+                if(title().length() > 0)
+                    return title();
+
+              return "";
+            }
+
 
         }; /* class BaseTexture */
 

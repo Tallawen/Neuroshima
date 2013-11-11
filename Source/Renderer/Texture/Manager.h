@@ -310,11 +310,6 @@ namespace Renderer {
               @param printLog Czy wypisać loga gdy textura nie jestnieje w pamięci
              ************************************************/
             bool textureResourceExists(const std::string &group, const std::string &name, const bool &printLog = true);
-
-            inline bool validTextureName(const Texture &texture) const; // TODO: Przenieść Texture, SubTexture
-
-            inline std::string textureName(const Texture &texture) const; // TODO: Przenieść Texture, SubTexture
-
         };
 
     }

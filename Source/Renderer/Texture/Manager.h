@@ -62,7 +62,7 @@ namespace Renderer {
 
               @return Zwraca ID gdy subtextura zostanie dodana lub wartość < od @b 0 gdy wystąpi bład
              ************************************************/
-            //int attachSub(const int &id, SubTexture subtexture); TODO: Do zaimplementowania
+            //int attachSub(const int &id, SubTexture subtexture);
 
 
             /**********************************************//**
@@ -274,6 +274,43 @@ namespace Renderer {
             //Texture & textureResource();
 
         private:
+            /**********************************************//**
+              @brief Sprawdza czy textura o danym @b id jest załadowana do pamięci
+
+              @param id       ID textury
+              @param printLog Czy wypisać loga gdy textura nie jestnieje w pamięci
+             ************************************************/
+            bool textureExists(const int &id, const bool &printLog = true) const;
+
+
+            /**********************************************//**
+              @brief Sprawdza czy textura o danej nazwie jest załadowana do pamięci
+
+              @param group    Grupa do której należy textura
+              @param nazwa    Nazwa textury
+              @param printLog Czy wypisać loga gdy textura nie jestnieje w pamięci
+             ************************************************/
+            bool textureExists(const std::string &group, const std::string &name, const bool &printLog = true);
+
+
+            /**********************************************//**
+              @brief Sprawdza czy textura o danym @b id jest załadowana do bazy
+
+              @param id       ID textury
+              @param printLog Czy wypisać loga gdy textura nie jestnieje w bazie
+             ************************************************/
+            bool textureResourceExists(const int &id, const bool &printLog = true) const;
+
+
+            /**********************************************//**
+              @brief Sprawdza czy textura o danej nazwie jest załadowana do bazy
+
+              @param group    Grupa do której należy textura
+              @param nazwa    Nazwa textury
+              @param printLog Czy wypisać loga gdy textura nie jestnieje w pamięci
+             ************************************************/
+            bool textureResourceExists(const std::string &group, const std::string &name, const bool &printLog = true);
+
             inline bool validTextureName(const Texture &texture) const; // TODO: Przenieść Texture, SubTexture
 
             inline std::string textureName(const Texture &texture) const; // TODO: Przenieść Texture, SubTexture

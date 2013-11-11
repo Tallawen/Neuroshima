@@ -43,12 +43,10 @@ namespace Renderer {
 
         /************************************************/
         bool Manager::detach(const int &id) {
-            if(texturesResource.find(id) == texturesResource.end()) {
-                LOG << LOG_INFO(LMsg::Warning) << "Textura (id = " << id << ") nie iestnieje w bazie." << std::endl;
-              return false;
-            }
+            if(!textureResourceExists(id))
+                return false;
 
-            if(textures.find(id) != textures.end()) {
+            if(textureExists(id, false)) {
                 LOG << LOG_INFO(LMsg::Warning) << "Textura (id = " << id << ") jest obecnie załadowana w pamieci. Nie można jej odpiąć." << std::endl;
               return false;
             }
@@ -66,11 +64,8 @@ namespace Renderer {
 
         /************************************************/
         bool Manager::detach(const std::string &group, const std::string &name) {
-            if(texturesIndexName[group].find(name) == texturesIndexName[group].end()) {
-                LOG << LOG_INFO(LMsg::Error) << "Textura nie istnieje w bazie: group = \"" << group << "\", name = \"" << name << "\"" << std::endl;
-
-              return false;
-            }
+            if(!textureResourceExists(group, name))
+                return false;
 
           return detach(texturesIndexName[group][name]);
         }
@@ -78,10 +73,8 @@ namespace Renderer {
 
         /************************************************/
         bool Manager::fDetach(const int &id) {
-            if(textures.find(id) == textures.end()) {
-                LOG << LOG_INFO(LMsg::Error) << "Textura (id = " << id << ") nie istnieje w pamięci" << std::endl;
-              return false;
-            }
+            if(!textureExists(id))
+                return false;
 
             textures.erase(id);
 
@@ -93,6 +86,56 @@ namespace Renderer {
                 detach(id);
             }
           return true;
+        }
+
+
+        /************************************************/
+        bool Manager::textureExists(const int &id, const bool &printLog) const {
+            bool exists = textures.find(id) != textures.end();
+
+            if(!exists && printLog)
+                LOG << LOG_INFO(LMsg::Error) << "Textura (id = " << id << ") nie istnieje w pamięci." << std::endl;
+
+          return exists;
+        }
+
+
+        /************************************************/
+        bool Manager::textureExists(const std::string &group, const std::string &name, const bool &printLog) {
+            bool exists = texturesIndexName[group].find(name) != texturesIndexName[group].end();
+
+            if(exists)
+                exists = textureExists(texturesIndexName[group][name], false);
+
+            if(!exists && printLog)
+                LOG << LOG_INFO(LMsg::Error) << "Textura nie istnieje w bazie: group = \"" << group << "\", name = \"" << name << "\"" << std::endl;
+
+          return exists;
+        }
+
+
+        /************************************************/
+        bool Manager::textureResourceExists(const int &id, const bool &printLog) const {
+            bool exists = texturesResource.find(id) != texturesResource.end();
+
+            if(!exists && printLog)
+                LOG << LOG_INFO(LMsg::Warning) << "Textura (id = " << id << ") nie iestnieje w bazie." << std::endl;
+
+          return exists;
+        }
+
+
+        /************************************************/
+        bool Manager::textureResourceExists(const std::string &group, const std::string &name, const bool &printLog) {
+            bool exists = texturesIndexName[group].find(name) != texturesIndexName[group].end();
+
+            if(exists)
+                exists = textureResourceExists(texturesIndexName[group][name], false);
+
+            if(!exists && printLog)
+                LOG << LOG_INFO(LMsg::Error) << "Textura nie istnieje w bazie: group = \"" << group << "\", name = \"" << name << "\"" << std::endl;
+
+          return exists;
         }
 
 
